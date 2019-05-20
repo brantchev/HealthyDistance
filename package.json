@@ -1,0 +1,18 @@
+{
+  "name": "mysql-connection-testing",
+  "version": "1.0.0",
+  "description": "the start of the build",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "skycube",
+  "license": "ISC",
+  "dependencies": {
+    "@mysql/xdevapi": "^8.0.16",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.0",
+    "morgan": "^1.9.1",
+    "mysql": "^2.17.1"
+  }
+}
