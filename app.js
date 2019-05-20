@@ -10,9 +10,8 @@ app.use(morgan('short'));
 app.use(express.static("./public"));
 app.use(router);
 
-app.get('/', (req, res) => {
-    console.log("Responding to root route");
-    res.send("Hello from ROOOOOT!");
+app.use(/*default redirect when not found*/(req, res) => {
+    res.status(404).send("Not found!");
 });
 
 app.listen(3003, () => {
