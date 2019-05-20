@@ -3,14 +3,17 @@ const express = require('express');
 const router = express.Router();
 const mysql = require('mysql');
 
+const connectionPool = mysql.createPool({
+    connectionLimit: 10,
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    password: 'Health-2019',
+    database: 'healthdb'
+});
+
 function getConnection() {
-    return mysql.createConnection({
-        host: 'localhost',
-        port: 3306,
-        user: 'root',
-        password: 'Health-2019',
-        database: 'healthdb'
-    });
+    return connectionPool;
 }
 
 router.post("/user_create", (req, res) => {
