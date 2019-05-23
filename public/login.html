@@ -41,23 +41,23 @@
             <div class="card mx-auto" style="width: 22rem;">
                 <img src="/images/ambulance2.jpg" class="card-img-top" alt="Моля, въведете потребител и парола за достъп до системата!">
                 <div class="card-body">
-                    <form class="px-4 py-3">
+                    <form id="loginForm" class="px-4 py-3" method="POST" action="/" onsubmit="mySubmit(this)">
                         <div class="form-group">
-                        <label for="exampleDropdownFormEmail1">Въведете потрбител</label>
-                        <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
+                        <label for="email">Въведете потрбител</label>
+                        <input type="email" class="form-control" id="email" name="userName" placeholder="email@example.com" required>
                         </div>
                         <div class="form-group">
-                        <label for="exampleDropdownFormPassword1">Въведете парола</label>
-                        <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Парола">
+                        <label for="pass">Въведете парола</label>
+                        <input type="password" class="form-control" id="pass" name="passWord" placeholder="Парола" required>
                         </div>
                         <div class="form-group">
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="dropdownCheck">
+                            <input type="checkbox" class="form-check-input" name="saveToStorage" id="dropdownCheck">
                             <label class="form-check-label" for="dropdownCheck">
                             Запомни ме
                             </label>
                         </div>
-                        </div>
+                        </div><!-- <input type="button" onclick="mySubmit()" class="btn btn-primary" value="ВХОД в Системата"> -->
                         <button type="submit" class="btn btn-primary">ВХОД в Системата</button>
                     </form>
                 </div>
@@ -70,5 +70,13 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        function mySubmit(form){
+            if(form.saveToStorage.checked){
+                const myObj = {userName: form.userName.value, passWord: form.passWord.value};
+                localStorage.setItem('healthAccess', JSON.stringify(myObj));
+            }
+        }
+    </script>
   </body>
 </html>

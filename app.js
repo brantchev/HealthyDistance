@@ -12,16 +12,44 @@ app.use(express.static("./public"));
 app.use(router);
 
 app.use("/", (req, res) => {
-    let fileName = "login.html";
-    let options = { root: path.join(__dirname, '/public') }
-    console.log(options.root+fileName);
-    res.sendFile(fileName, options, (err) => {
-    if (err) {
-      console.log(err);
+  console.log(">>>>>>>>>>>>>>>",req.body.userName, req.body.passWord);
+
+  if(!req.body.userName){
+      let fileName = "loader.html";
+      let options = { root: path.join(__dirname, '/public') }
+      console.log(options.root,fileName);
+      res.sendFile(fileName, options, (err) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('Sent:', fileName);
+        }
+      });
+
+  } else if (req.body.userName == "-"){
+      let fileName = "login.html";
+      let options = { root: path.join(__dirname, '/public') }
+      console.log(options.root,fileName);
+      res.sendFile(fileName, options, (err) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('Sent:', fileName);
+        }
+      });
+
     } else {
-      console.log('Sent:', fileName);
+      let fileName = "start.html";
+      let options = { root: path.join(__dirname, '/public') }
+      console.log(options.root,fileName);
+      res.sendFile(fileName, options, (err) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('Sent:', fileName);
+        }
+      });
     }
-  });
 });
 app.use(/*default redirect when not found*/(req, res) => {
     res.status(404).send("Not found!");
