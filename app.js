@@ -2,9 +2,10 @@
 const express = require('express');
 const app = express();
 const router = require('./routes/user.js');
-const path = require('path');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const ejs = require('ejs');
+app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(morgan('short'));
 // app.use(morgan("combined"));
@@ -21,39 +22,27 @@ const connection = mysql.createConnection({
     database: 'healthdb'
 });
 
-
-function sendHTML(fileName, res){
-  let options = { root: path.join(__dirname, '/public') }
-  console.log(options.root,fileName);
-  res.sendFile(fileName, options, (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log('Sent:', fileName);
-    }
-  });
-}
-
 app.use("/", (req, res) => {
-  console.log(">>>>>>>>>>>>>>>",req.body.userName, req.body.passWord);
-  if(!req.body.userName){
-    sendHTML("loader.html", res);
+
+  if (!req.body.userName){
+    res.render('loader');
 
   } else if (req.body.userName == "-"){
-    sendHTML("login.html", res);
+    res.render('login');
 
     } else {
       const queryString = "SELECT * FROM healthdb.users WHERE userName=? AND passWord=? LIMIT 1"
       connection.query(queryString, [req.body.userName, req.body.passWord], (err,rows,fields) => {
-        console.log("checking user/pass combination");
-        console.log(rows.length, rows);
+        
         if (err) {
             console.log(err);
             return false;
+
         } else if (rows.length > 0){
-          sendHTML("start.html", res);
+          res.render('start');
+
         } else {
-          sendHTML("login.html", res);
+          res.render('login');
         }
     });
   }
