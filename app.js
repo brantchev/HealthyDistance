@@ -1,7 +1,8 @@
 // Load our app server using express somehow..
 const express = require('express');
 const app = express();
-const router = require('./routes/user.js');
+const userRouter = require('./routes/user.js');
+const clinicsRouter = require('./routes/clinics.js');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
@@ -10,7 +11,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(morgan('short'));
 // app.use(morgan("combined"));
 app.use(express.static("./public"));
-app.use(router);
+app.use(userRouter);
+app.use(clinicsRouter);
 
 const mysql = require('mysql');
 
@@ -22,6 +24,8 @@ const connection = mysql.createConnection({
     database: 'healthdb'
 });
 
+
+
 app.use("/", (req, res) => {
 
   if (!req.body.userName){
@@ -31,7 +35,7 @@ app.use("/", (req, res) => {
     res.render('login');
 
     } else {
-      const queryString = "SELECT * FROM healthdb.users WHERE userName=? AND passWord=? LIMIT 1"
+      const queryString = "SELECT * FROM healthdb.users WHERE userName=? AND passWord=? LIMIT 1";
       connection.query(queryString, [req.body.userName, req.body.passWord], (err,rows,fields) => {
         
         if (err) {
@@ -47,6 +51,9 @@ app.use("/", (req, res) => {
     });
   }
 });
+
+
+
 app.use(/*default redirect when not found*/(req, res) => {
     res.status(404).send("Not found!");
 });
