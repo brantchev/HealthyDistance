@@ -94,3 +94,8 @@ body {
     left:50%;
     transform: translate(-50%);
 }
+
+#map {
+    width: 30%;
+    height: 30%;
+}

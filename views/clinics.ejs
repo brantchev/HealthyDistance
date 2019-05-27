@@ -1,13 +1,15 @@
 <%- include('header') -%>
 <body>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
     <%- include('nav') -%>
     <div id="tableContainer">
-    <table class="table">
+        <table class="table">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Наименование</th>
                     <th scope="col">Адрес</th>
-                    <th scope="col">Координати</th>
+                    <th scope="col">Lat Координати</th>
+                    <th scope="col">Lon Координати</th>
                     <th scope="col">Редакция/Изтриване</th>
                 </tr>
             </thead>
@@ -15,9 +17,9 @@
                 <% clinics.forEach((clinic, index) => { %>
                     <tr>
                         <th scope="row"><%= clinic.clinicName %></th>
-                        
                         <td><%= clinic.clinicAddr %></td>
-                        <td><%= clinic.clinicCoords %></td>
+                        <td><%= clinic.LatCoords %></td>
+                        <td><%= clinic.LonCoords %></td>
                         <td>
                             <a href="/edit/<%= clinic.id %>" target="_blank" rel="noopener" class="btn btn-sm btn-success">Редактирай</a>
                             <a href="/clindel/<%= clinic.id %>" class="btn btn-sm btn-danger" onclick="return confirm('Сигурни ли сте, че искате да изтриете това здравно заведение?')">Изтрии</a>
@@ -27,18 +29,19 @@
             </tbody>
         </table>
         <button id="popup" class="btn btn-md btn-primary" onclick="div_show()">Добавете здравно заведение</button>
-        </div>
-        <script>
+    </div>
+    <script>
+        function div_show() {
+            document.getElementById('popupAdd').style.display = "block";
+        }
 
-            function div_show() {
-                document.getElementById('popupAdd').style.display = "block";
-            }
-
-            function div_hide(){
-            document.getElementById('popupAdd').style.display = "none";
-            }
-        </script>
-        <div id="popupAdd">
+        function div_hide(){
+        document.getElementById('popupAdd').style.display = "none";
+        }
+    </script>
+    <div id="popupAdd">
+        <div class="row justify-content-center">
+            <div class="col-lg-auto">
                 <div class="card mx-auto" style="width: 22rem;" id="addClinic">
                         <img src="/images/emergency.jpg" class="card-img-top" alt="Моля, въведете потребител и парола за достъп до системата!">
                         <div class="card-body">
@@ -46,31 +49,33 @@
                             <hr>
                             <form class="px-4 py-3" method="POST" action="/add_clinic">
                                 <div class="form-group">
-                                <input id="name" class="form-control" name="clinicName" placeholder="Наименование" type="text" required>
+                                    <input id="name" class="form-control" name="clinicName" placeholder="Наименование" type="text" required>
                                 </div>
                                 <div class="form-group">
-                                <input id="addr" class="form-control" name="clinicAddr" placeholder="Адрес" type="text" required>
+                                    <input id="addr" class="form-control" name="clinicAddr" placeholder="Адрес" type="text" required>
                                 </div>
                                 <div class="form-group">
-                                <input id="coords" class="form-control" name="clinicCoords" placeholder="Координати" type="text"required>
+                                    <input id="latCoords" class="form-control" name="LatCoords" placeholder="Lat Координати" type="text" readonly="yes">
+                                </div>
+                                <div class="form-group">
+                                    <input id="lonCoords" class="form-control" name="LonCoords" placeholder="Lon Координати" type="text" readonly="yes">
                                 </div>
 
                                 <input type="submit" class="btn btn-sm btn-primary" value="Добави">
                                 <input type="reset" class="btn btn-sm btn-dark" onclick="div_hide()" value="Отказ" />
                             </form>
                         </div>
-                    </div>
+                </div>
+            </div>
+            <div class="col-lg-auto">
+                <div class="card mx-auto" style="width: 22rem;" id="addClinicMap">
+                        <div class="card-body">
+                            <div id="map"></div>
+                        </div>
+                </div>
+            </div>
         </div>
-        <!-- <div id="popupAdd">
-            <form action="/add_clinic" id="form" method="post" name="form">
-            <h4 style="text-align: center;">Добавяне на здравно заведение</h4>
-            <hr>
-            <input id="name" name="clinicName" placeholder="Наименование" type="text" required>
-            <input id="addr" name="clinicAddr" placeholder="Адрес" type="text" required>
-            <input id="coords" name="clinicCoords" placeholder="Координати" type="text"required>
-            <input type="submit" class="btn btn-sm btn-danger" value="Добави">
-            <input type="reset" class="btn btn-sm btn-danger" onclick="div_hide()" value="Отказ" />
-            </form>
-        </div> -->
+    </div>
+    <script type="text/javascript" src="/public/map.js"></script>
 </body>
 <%- include('footer') -%>
