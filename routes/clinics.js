@@ -17,8 +17,8 @@ function getConnection() {
 }
 
 router.post("/add_clinic", (req, res) => {
-    const queryString = "INSERT INTO healthdb.clinics (clinicName, clinicAddr, clinicCoords) VALUES (?,?,?)";
-    getConnection().query(queryString, [req.body.clinicName, req.body.clinicAddr, req.body.clinicCoords], (err, results, fields) =>{
+    const queryString = "INSERT INTO healthdb.clinics (clinicName, clinicAddr, LatCoords, LonCoords) VALUES (?,?,?,?)";
+    getConnection().query(queryString, [req.body.clinicName, req.body.clinicAddr, req.body.LatCoords, req.body.LonCoords], (err, results, fields) =>{
         if (err) {
             console.log(err);
             res.send(err.message);
