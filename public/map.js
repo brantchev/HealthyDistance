@@ -76,3 +76,28 @@ function markerLocation(){
     document.getElementById('latCoords').value = currentLocation.lat(); //latitude
     document.getElementById('lonCoords').value = currentLocation.lng(); //longitude
 }
+
+function markerSetLocation (Lat, Lng){
+    myLat = parseFloat(Lat);
+    myLng = parseFloat(Lng);
+    var position = new google.maps.LatLng(myLat, myLng);
+
+    console.log(myLat, myLng);
+    if (marker === false){
+        //Create the marker.
+        marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            draggable: true //make it draggable
+        });
+        // //Listen for drag events!
+        // google.maps.event.addListener(marker, 'dragend', function(event){
+        //     markerLocation();
+        // });
+    } else{
+        //Marker has already been added, so just change its location.
+        marker.setPosition(position);
+    }
+    map.panTo(position); 
+    map.setCenter(position); 
+}

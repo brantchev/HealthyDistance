@@ -31,6 +31,38 @@ router.post("/add_clinic", (req, res) => {
     });
 });
 
+router.get("/edit/:id", (req, res) => {
+    const clinicID = req.params.id;
+    const queryString = "SELECT * FROM healthdb.clinics WHERE id=? LIMIT 1";
+    getConnection().query(queryString, [clinicID], (err,rows,fields) => {
+          console.log(rows);
+          if (err) {
+            console.log(err);
+            res.sendStatus(500);
+            res.end();
+            return;
+  
+          } else {
+            res.render('clinicEdit', {clinic: rows});
+  
+          }
+      });  
+});
+
+router.post("/update/:id", (req, res) => {
+    const clinicID = req.params.id;
+    const queryString = "UPDATE healthdb.clinics SET clinicName=?, clinicAddr=?, LatCoords=?, LonCoords=? WHERE id=?";
+    getConnection().query(queryString, [req.body.clinicName, req.body.clinicAddr, req.body.LatCoords, req.body.LonCoords, clinicID], (err,rows,fields) => {
+          if (err) {
+            console.log(err);
+            res.sendStatus(500);
+            res.end();
+            return;
+          } else {
+            res.redirect('/clinics?update=success');
+          }
+      });  
+});
 
 router.get('/clindel/:id',(req, res) => {
     const clinicID = req.params.id;
