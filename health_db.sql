@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `healthdb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `healthdb`;
 -- MySQL dump 10.13  Distrib 8.0.16, for Win64 (x86_64)
 --
 -- Host: localhost    Database: healthdb
@@ -27,11 +25,11 @@ DROP TABLE IF EXISTS `clinics`;
 CREATE TABLE `clinics` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `clinicName` varchar(45) DEFAULT NULL,
-  `clinicAddr` varchar(45) DEFAULT NULL,
-  `LatCoords` varchar(45) DEFAULT NULL,
-  `LonCoords` varchar(45) DEFAULT NULL,
+  `clinicAddr` varchar(255) DEFAULT NULL,
+  `LatCoords` float DEFAULT NULL,
+  `LonCoords` float DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +38,7 @@ CREATE TABLE `clinics` (
 
 LOCK TABLES `clinics` WRITE;
 /*!40000 ALTER TABLE `clinics` DISABLE KEYS */;
-INSERT INTO `clinics` VALUES (1,'Клиника 1','гр.София','43423.423423',NULL),(3,'Болница 1','гр.София','4557457.7567567',NULL),(4,'Клиника 2','гр.Варна','43423.423423',NULL);
+INSERT INTO `clinics` VALUES (5,'Детска Градина \"Мечо Пух\"','гр. София',42.7244,23.3373),(6,'клуб Шугър','ул. „княз Борис I“ 121, 1000 Old City Center, София, България',42.6984,23.3192),(8,'Стадион','ул. „Единство“ 21, 1278 кв. Бенковски, Бенковски, България',42.7415,23.3471),(9,'KFC22','бул. „Александър Стамболийски“ 28, 1000 Old City Center, София, България',42.6974,23.3181),(11,'Дирекция „Миграция“','1202, бул. „княгиня Мария Луиза“ 48, 1202 София, България',42.7034,23.3237),(12,'Елдорадо','ул. „Лавеле“ 18, 1000 Old City Center, София, България',42.6968,23.3193),(13,'Stadium Vassil Levski','бул. „Евлоги и Христо Георгиеви“ 38, 1164 Борисова Градина, София, България',42.6876,23.3352),(14,'ул. „Враня“ 110','ул. „Враня“ 110, 1309 ж.к. Банишора, София, България',42.7074,23.3013),(16,'2 РПУ','Sofia, ul. Knyaz Boris I 215, България',42.7083,23.3215),(17,'Авточасти ЕООД (италианеца)','бул. „Овча купел“ 87, 1618 ж.к. Овча купел 1, София, България',42.6849,23.2734);
 /*!40000 ALTER TABLE `clinics` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -53,10 +51,12 @@ DROP TABLE IF EXISTS `users`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `firstName` varchar(45) DEFAULT NULL,
+  `lastName` varchar(45) DEFAULT NULL,
   `userName` varchar(45) DEFAULT NULL,
   `passWord` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +65,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'skycube@gmail.com','12345'),(2,'rosi@rosi.com','1234567890');
+INSERT INTO `users` VALUES (1,'Lubo','Brantchev','skycube@gmail.com','12345'),(2,'Teo','D.','teo@teo.com','12345'),(3,'Marto','','marto@marto.com','12345');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -78,4 +78,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-27 16:51:29
+-- Dump completed on 2019-05-30 20:07:32
