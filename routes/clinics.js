@@ -2,14 +2,16 @@
 const express = require('express');
 const router = express.Router();
 const mysql = require('mysql');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const connectionPool = mysql.createPool({
     connectionLimit: 10,
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    password: 'Health-2019',
-    database: 'healthdb'
+    host: process.env.DB_host,
+    port: process.env.DB_port,
+    user: process.env.DB_user,
+    password: process.env.DB_password,
+    database: process.env.DB_database
 });
 
 function getConnection() {
@@ -26,7 +28,7 @@ router.post("/add_clinic", (req, res) => {
             res.end();
             return;
         } else {
-            res.redirect('/clinics');
+            res.redirect('/clinics?action=added');
         }
     });
 });
@@ -59,7 +61,7 @@ router.post("/update/:id", (req, res) => {
             res.end();
             return;
           } else {
-            res.redirect('/clinics?update=success');
+            res.redirect('/clinics?action=updated');
           }
       });  
 });

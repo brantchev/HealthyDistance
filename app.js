@@ -5,6 +5,8 @@ const userRouter = require('./routes/user.js');
 const clinicsRouter = require('./routes/clinics.js');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
+dotenv.config();
 const ejs = require('ejs');
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: false}));
@@ -17,11 +19,11 @@ app.use(clinicsRouter);
 const mysql = require('mysql');
 
 const connection = mysql.createConnection({
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    password: 'Health-2019',
-    database: 'healthdb'
+  host: process.env.DB_host,
+  port: process.env.DB_port,
+  user: process.env.DB_user,
+  password: process.env.DB_password,
+  database: process.env.DB_database
 });
 
 

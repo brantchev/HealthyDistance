@@ -42,9 +42,11 @@
             document.body.appendChild(el);
         }
 
-        var result = new URL(location.href).searchParams.get("update");
-        if (result == "success"){
+        var result = new URL(location.href).searchParams.get("action");
+        if (result == "updated"){
             tempAlert("Редакцията извършена успешно!", 3000);
+        } else if (result == "added"){
+            tempAlert("Добавянето премина успешно!", 3000);
         }
         
         function div_show() {
@@ -87,10 +89,9 @@
             </div>
         </div>
     </div>
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIPXhUIG9opiyNk1X6SPivD6_dcHldYDE&libraries=places&callback=initMap&language=bg&region=BG">
+    <script async defer type="text/javascript" src='<%= process.env.CLINICS_API_URL %>' >
     </script>
-    <script src="/map.js"></script>
+    <script src="/map.js" type="text/javascript"></script>
     
 </body>
 <%- include('footer') -%>
