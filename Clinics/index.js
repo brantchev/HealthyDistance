@@ -1,10 +1,10 @@
 'use strict'
 
-const mySQL = require(../lib/mySQLconnection);
+const mySQL = require('../lib/mysqlConnection/MysqlConnection');
 
 module.exports = function (app) {
 
-    var ClinicsRepository = new (require('./ClinicsRepository'))(mySQL),
+    const ClinicsRepository = new (require('./ClinicsRepository'))(mySQL),
         ClinicsController = new (require('./ClinicsController'))(ClinicsRepository, app);
 
     return require ('./ClinicsRoutes')(ClinicsController);

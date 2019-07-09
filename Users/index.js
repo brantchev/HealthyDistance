@@ -1,10 +1,10 @@
 'use strict'
 
-const mySQL = require(../lib/mySQLconnection);
+const mySQL = require('../lib/mysqlConnection/MysqlConnection');
 
 module.exports = function (app) {
 
-    var UserRepository = new(require('./UserRepository'))(mySQL),
+    const UserRepository = new (require('./UserRepository'))(mySQL),
         UserController = new (require('./UserController'))(UserRepository, app);
 
     return require ('./UserRoutes')(UserController);

@@ -51,7 +51,7 @@ router.get("/edit/:id", (req, res) => {
       });  
 });
 
-router.post("/update/:id", (req, res) => {
+router.post("/edit/:id", (req, res) => {
     const clinicID = req.params.id;
     const queryString = "UPDATE healthdb.clinics SET clinicName=?, clinicAddr=?, LatCoords=?, LonCoords=? WHERE id=?";
     getConnection().query(queryString, [req.body.clinicName, req.body.clinicAddr, req.body.LatCoords, req.body.LonCoords, clinicID], (err,rows,fields) => {

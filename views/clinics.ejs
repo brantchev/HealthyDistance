@@ -13,18 +13,20 @@
                 </tr>
             </thead>
             <tbody>
-                <% clinics.forEach((clinic, index) => { %>
-                    <tr>
-                        <th scope="row"><%= clinic.clinicName %></th>
-                        <td><%= clinic.clinicAddr %></td>
-                        <td><%= clinic.LatCoords %></td>
-                        <td><%= clinic.LonCoords %></td>
-                        <td>
-                            <a href="/edit/<%= clinic.id %>" target="_self" rel="noopener" class="btn btn-sm btn-success">Редактирай</a>
-                            <a href="/clindel/<%= clinic.id %>" class="btn btn-sm btn-danger" onclick="return confirm('Сигурни ли сте, че искате да изтриете това здравно заведение?')">Изтрии</a>
-                        </td>
-                    </tr>
-                <% }) %>
+                <% if (clinics != null || clinics != undefined) { %>
+                    <% clinics.forEach((clinic, index) => { %>
+                        <tr>
+                            <th scope="row"><%= clinic.clinicName %></th>
+                            <td><%= clinic.clinicAddr %></td>
+                            <td><%= clinic.LatCoords %></td>
+                            <td><%= clinic.LonCoords %></td>
+                            <td>
+                                <a href="/clinics/edit/<%= clinic.id %>" target="_self" rel="noopener" class="btn btn-sm btn-success">Редактирай</a>
+                                <a href="/clinics/delete/<%= clinic.id %>" class="btn btn-sm btn-danger" onclick="return confirm('Сигурни ли сте, че искате да изтриете това здравно заведение?')">Изтрии</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } %>
             </tbody>
         </table>
         <button id="popup" class="btn btn-md btn-primary" onclick="div_show()">Добавете здравно заведение</button>
@@ -45,8 +47,10 @@
         var result = new URL(location.href).searchParams.get("action");
         if (result == "updated"){
             tempAlert("Редакцията извършена успешно!", 3000);
-        } else if (result == "added"){
+        } else if (result == "added" || added == true){
             tempAlert("Добавянето премина успешно!", 3000);
+        } else if (result == "existing"){
+            tempAlert("Съществуваща Клиника! Добавянето Прекратено!", 3000);
         }
         
         function div_show() {
@@ -64,7 +68,7 @@
                         <div class="card-body">
                             <h4 style="text-align: center;">Добавяне на здравно заведение</h4>
                             <hr>
-                            <form class="px-4 py-3" method="POST" action="/add_clinic">
+                            <form class="px-4 py-3" method="POST" action="/clinics/add">
                                 <div class="form-group">
                                     <input id="name" class="form-control" name="clinicName" placeholder="Наименование" type="text" required>
                                 </div>

@@ -13,20 +13,22 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(morgan('short'));
 // app.use(morgan("combined"));
 app.use(express.static("./public"));
-app.use(userRouter);
-app.use(clinicsRouter);
+// app.use(userRouter);
+// app.use(clinicsRouter);
+require('./routes/')(app);
 
-const mysql = require('mysql');
+// const mysql = require('mysql');
 
-const connection = mysql.createConnection({
-  host: process.env.DB_host,
-  port: process.env.DB_port,
-  user: process.env.DB_user,
-  password: process.env.DB_password,
-  database: process.env.DB_database
-});
+// const connection = mysql.createConnection({
+//   host: process.env.DB_host,
+//   port: process.env.DB_port,
+//   user: process.env.DB_user,
+//   password: process.env.DB_password,
+//   database: process.env.DB_database
+// });
 
-
+// const connection = require('./lib/mySQLconnection');
+const connection = require('./lib/mysqlConnection/MysqlConnection');
 
 app.use("/", (req, res) => {
 
@@ -38,15 +40,9 @@ app.use("/", (req, res) => {
 
     } else {
       const queryString = "SELECT * FROM healthdb.users WHERE userName=? AND passWord=? LIMIT 1";
-      connection.query(queryString, [req.body.userName, req.body.passWord], (err,rows,fields) => {
-        
-        if (err) {
-            console.log(err);
-            return false;
-
-        } else if (rows.length > 0){
+      connection.makeQuery(queryString, [req.body.userName, req.body.passWord], (rows) => {
+        if (rows.length > 0){
           res.render('start');
-
         } else {
           res.render('login');
         }

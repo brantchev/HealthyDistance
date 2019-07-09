@@ -8,7 +8,7 @@
     <script>
         function cancelAndExit(){
             alert ("Сигурни ли сте, че искате да прекратите редактирането без да запишете промените?");
-            window.location.replace("/clinics");
+            window.location.replace("/clinics/list");
         }
         console.log("<%= clinic[0].id %>");
     </script>
@@ -20,7 +20,7 @@
                         <div class="card-body">
                             <h4 style="text-align: center;">Редактиране на съществуващо здравно заведение</h4>
                             <hr>
-                            <form class="px-4 py-3" method="POST" action="/update/<%= clinic[0].id %>">
+                            <form class="px-4 py-3" method="POST" action="/clinics/edit/<%= clinic[0].id %>">
                                 <div class="form-group">
                                     <input id="name" class="form-control" name="clinicName" value="<%= clinic[0].clinicName %>" placeholder="Наименование" type="text" required>
                                 </div>
