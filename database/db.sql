@@ -22,7 +22,7 @@ USE `healthdb` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `healthdb`.`clinics` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `clinicName` VARCHAR(45) NULL DEFAULT NULL,
+  `clinicName` VARCHAR(100) NULL DEFAULT NULL,
   `clinicAddr` VARCHAR(255) NULL DEFAULT NULL,
   `LatCoords` FLOAT NULL DEFAULT NULL,
   `LonCoords` FLOAT NULL DEFAULT NULL,
