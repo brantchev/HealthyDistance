@@ -1,4 +1,16 @@
-Hi
+# WELCOME
+### Work is in progress...
+
+>Technologies involved:
+- JavaScript ES6
+- Node.js
+- Express
+- EJS
+- MySQL
+- Google Maps API services
+...etc.
+
+>Images of the system:
 
 ![Alt text](/public/images/login.png?raw=true "Login to the system")
 
