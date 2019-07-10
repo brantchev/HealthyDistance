@@ -19,20 +19,12 @@ module.exports = function ClinicsController(ClinicsRepository, app) {
                 res.redirect(302,'/clinics/list?action=existing');
 			} else {
 				let clinic = await ClinicsRepository.addClinic(
-                   req.body.clinicName,
-				   req.body.clinicAddr,
-				   req.body.LatCoords,
-				   req.body.LonCoords
-                );
-                try {
-                    let list = await ClinicsRepository.clinicsList();
-                    //res.json(list);
-                    res.render('clinics', {clinics: list, added: true});
-                } catch(err) {
-                    console.log(err);
-                    catchError(res, err, '---Get Clinics---')
-                }
-                
+                    req.body.clinicName,
+                    req.body.clinicAddr,
+                    req.body.LatCoords,
+                    req.body.LonCoords
+                );                
+                res.redirect('/clinics/list?action=add');
 			}
 
 		} catch(err) {
@@ -55,7 +47,7 @@ module.exports = function ClinicsController(ClinicsRepository, app) {
                 catchError(res, err, '---Update Clinic---')
             }
        } else {
-           try {
+            try {
                 let edit = await ClinicsRepository.editClinic(req.params.id);
                 res.render('clinicEdit', {clinic: edit});
             } catch(err) {

@@ -107,7 +107,8 @@ body {
     text-shadow: 1px 1px #818181;
 }
 
-#popup {
+/* this is the button "Add clinic" */
+#buttonAdd {
     display: inline-block;
     position: relative;
     left:50%;

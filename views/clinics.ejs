@@ -29,7 +29,7 @@
                 <% } %>
             </tbody>
         </table>
-        <button id="popup" class="btn btn-md btn-primary" onclick="div_show()">Добавете здравно заведение</button>
+        <button id="buttonAdd" class="btn btn-md btn-primary" onclick="div_show()">Добавете здравно заведение</button>
     </div>
     <script>
         // screen message
@@ -45,12 +45,22 @@
         }
 
         var result = new URL(location.href).searchParams.get("action");
+        
         if (result == "updated"){
             tempAlert("Редакцията извършена успешно!", 3000);
-        } else if (result == "added" || added == true){
+        } else if (result == "add") {
+            setTimeout('reloadIt()', 10)();
+        } else if (result == "added"){
+            document.getElementById("done").scrollIntoView();
             tempAlert("Добавянето премина успешно!", 3000);
         } else if (result == "existing"){
             tempAlert("Съществуваща Клиника! Добавянето Прекратено!", 3000);
+        }
+
+        function reloadIt() {
+            if (window.location.href.substr(-4) !== "list") {
+                window.location = window.location.href + "ed";
+            }
         }
         
         function div_show() {
