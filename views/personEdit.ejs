@@ -1,47 +1,46 @@
 <%- include('header') -%>
 <body onload="markerSetLocation('<%= person[0].LatCoords %>', '<%= person[0].LonCoords %>');">
-        
-        
-    
     <%- include('nav') -%>
     
     <script>
         function cancelAndExit(){
-            alert ("Сигурни ли сте, че искате да прекратите редактирането без да запишете промените?");
-            window.location.replace("/people/list");
+            if (confirm ("Сигурни ли сте, че искате да прекратите редактирането без да запишете промените?")){
+                window.location.replace("/people/list");
+                // window.history.back();
+            }
         }
-        console.log("<%= person[0].id %>");
     </script>
+
     <div id="popupEdit" style="display: block;">
         <div class="row justify-content-center" id="edit">
             <div class="col-sm-auto">
                 <div class="card mx-auto" style="width: 22rem;" >
-                        <img src="/images/edit-records.jpg" class="card-img-top" alt="Редакция на човек!">
-                        <div class="card-body">
-                            <h4 style="text-align: center;">Редактиране на съществуващо досие</h4>
-                            <hr>
-                            <form class="px-4 py-3" method="POST" action="/people/edit/<%= person[0].id %>">
-                                <div class="form-group">
-                                    <input id="alias" class="form-control" name="personName" value="<%= person[0].personName %>" placeholder="Име / Псевдоним" type="text" required>
-                                </div>
-                                <div class="form-group">
-                                    <input id="addr" class="form-control" name="personAddr" value="<%= person[0].personAddr %>" placeholder="Адрес" type="text" required>
-                                </div>
-                                <div class="form-group">
-                                    <input id="latCoords" class="form-control" name="LatCoords" value="<%= person[0].LatCoords %>" placeholder="Lat Координати" type="text" readonly="yes">
-                                </div>
-                                <div class="form-group">
-                                    <input id="lonCoords" class="form-control" name="LonCoords" value="<%= person[0].LonCoords %>"placeholder="Lon Координати" type="text" readonly="yes">
-                                </div>
+                    <img src="/images/edit-records.jpg" class="card-img-top" alt="Редакция на човек!">
+                    <div class="card-body">
+                        <h4 style="text-align: center;">Редактиране на съществуващо досие</h4>
+                        <hr>
+                        <form class="px-4 py-3" method="POST" action="/people/edit/<%= person[0].id %>">
+                            <div class="form-group">
+                                <input id="alias" class="form-control" name="personName" value="<%= person[0].personName %>" placeholder="Име / Псевдоним" type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <input id="addr" class="form-control" name="personAddr" value="<%= person[0].personAddr %>" placeholder="Адрес" type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <input id="latCoords" class="form-control" name="LatCoords" value="<%= person[0].LatCoords %>" placeholder="Lat Координати" type="text" readonly="yes">
+                            </div>
+                            <div class="form-group">
+                                <input id="lonCoords" class="form-control" name="LonCoords" value="<%= person[0].LonCoords %>"placeholder="Lon Координати" type="text" readonly="yes">
+                            </div>
 
-                                <input type="submit" class="btn btn-sm btn-primary" value="Редактирай">
-                                <input type="reset" id="cancelAdd" class="btn btn-sm btn-dark" onclick="cancelAndExit()" value="Отказ" />
-                            </form>
-                        </div>
+                            <input type="submit" class="btn btn-sm btn-primary" value="Редактирай">
+                            <input type="reset" id="cancelAdd" class="btn btn-sm btn-dark" onclick="cancelAndExit()" value="Отказ" />
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-6">
-                    <div id="map" class="card"></div>
+                <div id="map" class="card"></div>
             </div>
         </div>
     </div>
@@ -49,7 +48,7 @@
     <script async defer type="text/javascript" src='<%= process.env.MAP_API_URL %>' >
     </script>
 
-    <script src="/map.js" type="text/javascript"></script>
+    <script src="/scripts/map.js" type="text/javascript"></script>
     
 </body>
 <%- include('footer') -%>

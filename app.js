@@ -12,6 +12,9 @@ app.use(morgan('short'));
 // app.use(morgan("combined"));
 app.use(express.static("./public"));
 
+//this transformer route is used for deception (real path is hidden from users)
+app.use('/scripts', express.static(__dirname + '/lib/'));
+
 require('./routes/')(app);
 
 const connection = require('./lib/mysqlConnection/MysqlConnection');
@@ -36,7 +39,7 @@ app.use("/", (req, res) => {
   }
 });
 
-
+app.use('/scripts', express.static(__dirname + '/lib/'));
 
 app.use(/*default redirect when not found*/(req, res) => {
     res.status(404).send("Not found!");

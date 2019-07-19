@@ -3,7 +3,7 @@
     <%- include('nav') -%>
     <div id="tableContainer">
         <table class="table">
-            <thead class="thead-dark">
+            <thead class="people-header">
                 <tr>
                     <th scope="col">Име</th>
                     <th scope="col">Адрес</th>
@@ -16,107 +16,21 @@
                 <% if (persons != null || persons != undefined) { %>
                     <% persons.forEach((person, index) => { %>
                         <tr>
-                            <th scope="row"><%= person.personName %></th>
+                            <th scope="row" id="<%= person.id %>"><%= person.personName %></th>
                             <td><%= person.personAddr %></td>
                             <td><%= person.LatCoords %></td>
                             <td><%= person.LonCoords %></td>
                             <td>
-                                <a href="/people/edit/<%= person.id %>" target="_self" rel="noopener" class="btn btn-sm btn-success">Редактирай</a>
-                                <a href="/people/delete/<%= person.id %>" class="btn btn-sm btn-danger" onclick="return confirm('Сигурни ли сте, че искате да изтриете този човек?')">Изтрии</a>
+                                <button class="btn btn-sm btn-success" onclick="edit('person', <%= person.id %>)">Редактирай</button>
+                                <button class="btn btn-sm btn-danger" onclick="del('person', <%= person.id %>)">Изтрии</button>
                             </td>
                         </tr>
                     <% }) %>
                 <% } %>
             </tbody>
         </table>
-        <button id="buttonAdd" class="btn btn-md btn-primary" onclick="div_show()">Добавете човек</button>
+        <button id="buttonAdd" class="btn btn-md btn-primary" onclick="add('person')">Добавете човек</button>
     </div>
-    <script>
-        // screen message
-        function tempAlert(msg,duration){
-            var el = document.createElement("div");
-            el.setAttribute("id","successMessage");
-            el.setAttribute("class","align-middle")
-            el.innerHTML = "<h4>"+ msg + "</h4>";
-            setTimeout(function(){
-            el.parentNode.removeChild(el);
-            },duration);
-            document.body.appendChild(el);
-        }
-
-        function getUrlParameter(name) {
-            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-            var results = regex.exec(location.search);
-            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-        };
-
-        // var action = new URL(location.href).searchParams.get("action");
-        // var ref  = new URL(location.href).searchParams.get("ref");
-        var action = getUrlParameter('action');
-        var ref = getUrlParameter('ref');
-
-        if (action == "updated"){
-            document.getElementById(ref).scrollIntoView();
-            tempAlert("Редакцията извършена успешно!", 3000);
-        } else if (action == "add") {
-            setTimeout('reloadIt()', 10)();
-        } else if (action == "added"){
-            document.getElementById("buttonAdd").scrollIntoView();
-            tempAlert("Добавянето премина успешно!", 3000);
-        } else if (action == "existing"){
-            tempAlert("Съществуващ Човек! Добавянето Прекратено!", 3000);
-        }
-
-        function reloadIt() {
-            if (window.location.href.substr(-4) !== "list") {
-                window.location = window.location.href + "ed";
-            }
-        }
-        
-        function div_show() {
-            document.getElementById('popupAdd').style.display = "block";
-        }
-        function div_hide(){
-            document.getElementById('popupAdd').style.display = "none";
-        }
-    </script>
-    <div id="popupAdd">
-        <div class="row justify-content-center" id="add">
-            <div class="col-sm-auto">
-                <div class="card mx-auto" style="width: 22rem;" >
-                        <img src="/images/girl_healthcard.jpg" class="card-img-top" alt="Добавяне на човек!">
-                        <div class="card-body">
-                            <h4 style="text-align: center;">Добавяне на човек</h4>
-                            <hr>
-                            <form class="px-4 py-3" method="POST" action="/people/add">
-                                <div class="form-group">
-                                    <input id="alias" class="form-control" name="personName" placeholder="Име / Псевдоним" type="text" required>
-                                </div>
-                                <div class="form-group">
-                                    <input id="addr" class="form-control" name="personAddr" placeholder="Адрес" type="text" required>
-                                </div>
-                                <div class="form-group">
-                                    <input id="latCoords" class="form-control" name="LatCoords" placeholder="Lat Координати" type="text" readonly="yes">
-                                </div>
-                                <div class="form-group">
-                                    <input id="lonCoords" class="form-control" name="LonCoords" placeholder="Lon Координати" type="text" readonly="yes">
-                                </div>
-
-                                <input type="submit" class="btn btn-sm btn-primary" value="Добави">
-                                <input type="reset" id="cancelAdd" class="btn btn-sm btn-dark" onclick="div_hide()" value="Отказ" />
-                            </form>
-                        </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                    <div id="map" class="card"></div>
-            </div>
-        </div>
-    </div>
-    <script async defer type="text/javascript" src='<%= process.env.MAP_API_URL %>' >
-    </script>
-    <script src="/map.js" type="text/javascript"></script>
-    
+    <script src="/scripts/helper.js" type="text/javascript"></script>
 </body>
 <%- include('footer') -%>

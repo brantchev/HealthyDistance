@@ -5,6 +5,7 @@ const async = require('async');
 module.exports = function PersonController(PersonRepository, app) {
 
    async function addPerson(req, res){
+    if (req.method == "POST"){
 		if (!req.body.personAddr || !req.body.LatCoords || !req.body.LonCoords) {
            res.status(400).json({
                success: false,
@@ -29,7 +30,10 @@ module.exports = function PersonController(PersonRepository, app) {
 
 		} catch(err) {
 			catchError(res, err, '---Add Person---');
-		}
+        }
+    } else {
+        res.render('personAdd');
+    }
    }
    
    async function editPerson(req, res){
@@ -41,7 +45,7 @@ module.exports = function PersonController(PersonRepository, app) {
                                                                 req.body.LatCoords,
                                                                 req.body.LonCoords);
                 console.log(update);
-                res.redirect('/people/list?action=updated');
+                res.redirect('/people/list?action=updated&ref=' + req.params.id);
             } catch(err) {
                 console.log(err);
                 catchError(res, err, '---Update Person---')

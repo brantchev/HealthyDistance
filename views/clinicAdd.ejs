@@ -1,0 +1,51 @@
+<%- include('header') -%>
+    <%- include('nav') -%>
+    <script>
+        function cancelAndExit(){
+            if (confirm ("Сигурни ли сте, че искате да прекратите добавянето без да запишете промените?")){
+                window.location.replace("/clinics/list");
+                // window.history.back();
+            }
+        }
+    </script>
+    <div id="popupAdd">
+        <div class="row justify-content-center" id="add">
+            <div class="col-sm-auto">
+                <div class="card mx-auto" style="width: 22rem;" >
+                        <img src="/images/emergency.jpg" class="card-img-top" alt="Добавяне на ново здравно заведение!">
+                        <div class="card-body">
+                            <h4 style="text-align: center;">Добавяне на здравно заведение</h4>
+                            <hr>
+                            <form class="px-4 py-3" method="POST" action="/clinics/add">
+                                <div class="form-group">
+                                    <input id="name" class="form-control" name="clinicName" placeholder="Наименование" type="text" required>
+                                </div>
+                                <div class="form-group">
+                                    <input id="addr" class="form-control" name="clinicAddr" placeholder="Адрес" type="text" required>
+                                </div>
+                                <div class="form-group">
+                                    <input id="latCoords" class="form-control" name="LatCoords" placeholder="Lat Координати" type="text" readonly="yes">
+                                </div>
+                                <div class="form-group">
+                                    <input id="lonCoords" class="form-control" name="LonCoords" placeholder="Lon Координати" type="text" readonly="yes">
+                                </div>
+
+                                <input type="submit" class="btn btn-sm btn-primary" value="Добави">
+                                <input type="reset" id="cancelAdd" class="btn btn-sm btn-dark" onclick="cancelAndExit()" value="Отказ" />
+                            </form>
+                        </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                    <div id="map" class="card"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script async defer type="text/javascript" src='<%= process.env.MAP_API_URL %>' >
+    </script>
+
+    <script src="/scripts/map.js" type="text/javascript"></script>
+    
+</body>
+<%- include('footer') -%>

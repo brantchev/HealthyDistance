@@ -5,6 +5,7 @@ const async = require('async');
 module.exports = function ClinicsController(ClinicsRepository, app) {
 
    async function addClinic(req, res){
+    if (req.method == "POST"){
 		if (!req.body.clinicAddr || !req.body.LatCoords || !req.body.LonCoords) {
            res.status(400).json({
                success: false,
@@ -29,7 +30,10 @@ module.exports = function ClinicsController(ClinicsRepository, app) {
 
 		} catch(err) {
 			catchError(res, err, '---Add Clinic---');
-		}
+        }
+    } else {
+        res.render('clinicAdd');
+    }
    }
    
    async function editClinic(req, res){
