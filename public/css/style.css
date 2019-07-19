@@ -83,7 +83,7 @@ body {
 
 
 
-#addClinic, #editClinic {
+#add, #edit {
     position: relative;
     top: 50%;
     left: 50%;

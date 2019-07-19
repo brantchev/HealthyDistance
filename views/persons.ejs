@@ -5,7 +5,7 @@
         <table class="table">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">Наименование</th>
+                    <th scope="col">Име</th>
                     <th scope="col">Адрес</th>
                     <th scope="col">Lat Координати</th>
                     <th scope="col">Lon Координати</th>
@@ -13,23 +13,23 @@
                 </tr>
             </thead>
             <tbody>
-                <% if (clinics != null || clinics != undefined) { %>
-                    <% clinics.forEach((clinic, index) => { %>
+                <% if (persons != null || persons != undefined) { %>
+                    <% persons.forEach((person, index) => { %>
                         <tr>
-                            <th scope="row" id="<%= clinic.id %>"><%= clinic.clinicName %></th>
-                            <td><%= clinic.clinicAddr %></td>
-                            <td><%= clinic.LatCoords %></td>
-                            <td><%= clinic.LonCoords %></td>
+                            <th scope="row"><%= person.personName %></th>
+                            <td><%= person.personAddr %></td>
+                            <td><%= person.LatCoords %></td>
+                            <td><%= person.LonCoords %></td>
                             <td>
-                                <a href="/clinics/edit/<%= clinic.id %>" target="_self" rel="noopener" class="btn btn-sm btn-success">Редактирай</a>
-                                <a href="/clinics/delete/<%= clinic.id %>" class="btn btn-sm btn-danger" onclick="return confirm('Сигурни ли сте, че искате да изтриете това здравно заведение?')">Изтрии</a>
+                                <a href="/people/edit/<%= person.id %>" target="_self" rel="noopener" class="btn btn-sm btn-success">Редактирай</a>
+                                <a href="/people/delete/<%= person.id %>" class="btn btn-sm btn-danger" onclick="return confirm('Сигурни ли сте, че искате да изтриете този човек?')">Изтрии</a>
                             </td>
                         </tr>
                     <% }) %>
                 <% } %>
             </tbody>
         </table>
-        <button id="buttonAdd" class="btn btn-md btn-primary" onclick="div_show()">Добавете здравно заведение</button>
+        <button id="buttonAdd" class="btn btn-md btn-primary" onclick="div_show()">Добавете човек</button>
     </div>
     <script>
         // screen message
@@ -65,7 +65,7 @@
             document.getElementById("buttonAdd").scrollIntoView();
             tempAlert("Добавянето премина успешно!", 3000);
         } else if (action == "existing"){
-            tempAlert("Съществуваща Клиника! Добавянето Прекратено!", 3000);
+            tempAlert("Съществуващ Човек! Добавянето Прекратено!", 3000);
         }
 
         function reloadIt() {
@@ -85,16 +85,16 @@
         <div class="row justify-content-center" id="add">
             <div class="col-sm-auto">
                 <div class="card mx-auto" style="width: 22rem;" >
-                        <img src="/images/emergency.jpg" class="card-img-top" alt="Добавяне на ново здравно заведение!">
+                        <img src="/images/girl_healthcard.jpg" class="card-img-top" alt="Добавяне на човек!">
                         <div class="card-body">
-                            <h4 style="text-align: center;">Добавяне на здравно заведение</h4>
+                            <h4 style="text-align: center;">Добавяне на човек</h4>
                             <hr>
-                            <form class="px-4 py-3" method="POST" action="/clinics/add">
+                            <form class="px-4 py-3" method="POST" action="/people/add">
                                 <div class="form-group">
-                                    <input id="name" class="form-control" name="clinicName" placeholder="Наименование" type="text" required>
+                                    <input id="alias" class="form-control" name="personName" placeholder="Име / Псевдоним" type="text" required>
                                 </div>
                                 <div class="form-group">
-                                    <input id="addr" class="form-control" name="clinicAddr" placeholder="Адрес" type="text" required>
+                                    <input id="addr" class="form-control" name="personAddr" placeholder="Адрес" type="text" required>
                                 </div>
                                 <div class="form-group">
                                     <input id="latCoords" class="form-control" name="LatCoords" placeholder="Lat Координати" type="text" readonly="yes">
