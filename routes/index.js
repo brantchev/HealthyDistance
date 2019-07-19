@@ -11,9 +11,8 @@ module.exports = function (app) {
     const clinics = require(pathServer + 'Clinics')();
     router.use('/clinics', clinics);
 
-    // const users = require(pathServer + 'Users')(app);
-    // router.use('/users', users);
-
+    const persons = require(pathServer + 'Persons')();
+    router.use('/people', persons);
 
     return router;
 };

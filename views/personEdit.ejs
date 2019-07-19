@@ -1,5 +1,5 @@
 <%- include('header') -%>
-<body onload="markerSetLocation('<%= clinic[0].LatCoords %>', '<%= clinic[0].LonCoords %>');">
+<body onload="markerSetLocation('<%= person[0].LatCoords %>', '<%= person[0].LonCoords %>');">
         
         
     
@@ -8,30 +8,30 @@
     <script>
         function cancelAndExit(){
             alert ("Сигурни ли сте, че искате да прекратите редактирането без да запишете промените?");
-            window.location.replace("/clinics/list");
+            window.location.replace("/people/list");
         }
-        console.log("<%= clinic[0].id %>");
+        console.log("<%= person[0].id %>");
     </script>
     <div id="popupEdit" style="display: block;">
         <div class="row justify-content-center" id="edit">
             <div class="col-sm-auto">
                 <div class="card mx-auto" style="width: 22rem;" >
-                        <img src="/images/Medical_Student.jpg" class="card-img-top" alt="Добавяне на ново здравно заведение!">
+                        <img src="/images/edit-records.jpg" class="card-img-top" alt="Редакция на човек!">
                         <div class="card-body">
-                            <h4 style="text-align: center;">Редактиране на съществуващо здравно заведение</h4>
+                            <h4 style="text-align: center;">Редактиране на съществуващо досие</h4>
                             <hr>
-                            <form class="px-4 py-3" method="POST" action="/clinics/edit/<%= clinic[0].id %>">
+                            <form class="px-4 py-3" method="POST" action="/people/edit/<%= person[0].id %>">
                                 <div class="form-group">
-                                    <input id="name" class="form-control" name="clinicName" value="<%= clinic[0].clinicName %>" placeholder="Наименование" type="text" required>
+                                    <input id="alias" class="form-control" name="personName" value="<%= person[0].personName %>" placeholder="Име / Псевдоним" type="text" required>
                                 </div>
                                 <div class="form-group">
-                                    <input id="addr" class="form-control" name="clinicAddr" value="<%= clinic[0].clinicAddr %>" placeholder="Адрес" type="text" required>
+                                    <input id="addr" class="form-control" name="personAddr" value="<%= person[0].personAddr %>" placeholder="Адрес" type="text" required>
                                 </div>
                                 <div class="form-group">
-                                    <input id="latCoords" class="form-control" name="LatCoords" value="<%= clinic[0].LatCoords %>" placeholder="Lat Координати" type="text" readonly="yes">
+                                    <input id="latCoords" class="form-control" name="LatCoords" value="<%= person[0].LatCoords %>" placeholder="Lat Координати" type="text" readonly="yes">
                                 </div>
                                 <div class="form-group">
-                                    <input id="lonCoords" class="form-control" name="LonCoords" value="<%= clinic[0].LonCoords %>"placeholder="Lon Координати" type="text" readonly="yes">
+                                    <input id="lonCoords" class="form-control" name="LonCoords" value="<%= person[0].LonCoords %>"placeholder="Lon Координати" type="text" readonly="yes">
                                 </div>
 
                                 <input type="submit" class="btn btn-sm btn-primary" value="Редактирай">

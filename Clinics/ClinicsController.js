@@ -40,8 +40,8 @@ module.exports = function ClinicsController(ClinicsRepository, app) {
                                                                 req.body.clinicAddr,
                                                                 req.body.LatCoords,
                                                                 req.body.LonCoords);
-                console.log(update);
-                res.redirect('/clinics/list?action=updated');
+                // console.log(update);
+                res.redirect('/clinics/list?action=updated&ref=' + req.params.id);
             } catch(err) {
                 console.log(err);
                 catchError(res, err, '---Update Clinic---')
